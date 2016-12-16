@@ -1,0 +1,92 @@
+/**
+ * Copyright (c) 2015-present, MaxLeapMobile.
+ * All rights reserved.
+ * ----
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+package com.maxleap.sample.login.activity;
+
+import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+
+import com.maxleap.sample.login.R;
+import com.maxleap.sample.login.utils.NoUtilCheck;
+
+public class ResetPasswordActivity extends BaseActivity {
+
+    public final static String INTENT_KEY_RESET_PHONE = "INTENT_KEY_RESET_PHONE";
+
+    private TextInputLayout resetPwdCode;
+    private TextInputLayout resetPwd;
+    private TextInputLayout resetRepeatPwd;
+    private Button confirmBtn;
+    private View progressbar;
+    private String tel;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.maccount_activity_reset_password);
+        init();
+    }
+
+    private void init() {
+        initView();
+    }
+
+
+    private void initView() {
+        tel = getIntent().getStringExtra(INTENT_KEY_RESET_PHONE);
+        resetPwdCode = (TextInputLayout) findViewById(R.id.reset_password_code);
+        resetPwd = (TextInputLayout) findViewById(R.id.reset_password_pwd);
+        resetRepeatPwd = (TextInputLayout) findViewById(R.id.reset_password_repeat_pwd);
+        confirmBtn = (Button) findViewById(R.id.reset_password_confirm);
+        progressbar = findViewById(R.id.progress_bar_area);
+
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String code = resetPwdCode.getEditText().getText().toString().trim();
+                String pwd = resetPwd.getEditText().getText().toString().trim();
+                String pwdRepeat = resetRepeatPwd.getEditText().getText().toString().trim();
+                if (TextUtils.isEmpty(code)) {
+                    resetPwdCode.setError(getString(R.string.fragment_login_password_code_empty_error));
+                    resetPwdCode.requestFocus();
+                } else if (TextUtils.isEmpty(pwd)) {
+                    resetPwd.setError(getString(R.string.fragment_login_password_empty_error));
+                    resetPwd.requestFocus();
+                } else if (pwd.length() < 6 || pwd.length() > 20) {
+                    resetPwd.setError(getString(R.string.fragment_login_password_invalid_error));
+                    resetPwd.requestFocus();
+                } else if (!NoUtilCheck.isReasonable(pwd) || NoUtilCheck.isNumeric(pwd) || NoUtilCheck.isCharacter(pwd)) {
+                    resetPwd.setError(getString(R.string.fragment_login_password_safe_error));
+                    resetPwd.requestFocus();
+                } else if (!pwd.equals(pwdRepeat)) {
+                    resetRepeatPwd.setError(getString(R.string.fragment_login_password_reset_error));
+                    resetRepeatPwd.requestFocus();
+                } else {
+                    resetPwdCode.setErrorEnabled(false);
+                    resetPwdCode.setError("");
+                    resetPwd.setErrorEnabled(false);
+                    resetPwd.setError("");
+                    resetRepeatPwd.setErrorEnabled(false);
+                    resetRepeatPwd.setError("");
+                    View view = getCurrentFocus();
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).
+                            hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    progressbar.setVisibility(View.VISIBLE);
+
+
+
+                }
+            }
+        });
+    }
+
+}

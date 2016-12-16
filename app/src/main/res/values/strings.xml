@@ -7,7 +7,6 @@
     <string name="action_sign_in">登录</string>
     <string name="action_sign_in_short">Sign in</string>
 
-    <string name="fragment_login_title">登录</string>
     <string name="fragment_login_tel">手机号</string>
     <string name="fragment_login_password">请输入密码</string>
     <string name="fragment_login_to_register">立即注册</string>
@@ -40,5 +39,31 @@
     <string name="fragment_login_apply_dialog_message">申请已提交，审核通过后将通过短信提醒您。</string>
     <string name="fragment_login_apply_dialog_confirm">确认</string>
     <string name="fragment_login_login_failed">登录失败，请重试！</string>
-    <string name="fragment_login_register_title">注册协议</string>
+    <string name="fragment_login_out">注销登录</string>
+
+
+    <string name="activity_register_title">注册</string>
+    <string name="activity_register_apply_now">立即申请</string>
+    <string name="activity_register_now">立即注册</string>
+    <string name="activity_register_tel_hint">请输入手机号</string>
+    <string name="activity_register_get_verify_code">获取验证码</string>
+    <string name="activity_register_password_hint">6-20位字母、数字组合密码</string>
+    <string name="activity_register_verify_hint">请输入验证码</string>
+    <string name="activity_register_notice">已有账号？立即登录</string>
+    <string name="activity_register_custom_attr">请选择%1$s</string>
+    <string name="activity_register_custom_attr_input">请输入%1$s</string>
+
+    <string name="activity_register_type">您可以使用一下两种方式进行注册:</string>
+    <string name="activity_register_type1">提交用户名和密码进行注册:</string>
+    <string name="activity_register_type2">手机号快速注册注册:</string>
+
+    <string name="activity_forget_password_title">忘记密码</string>
+    <string name="activity_forget_password_tel">手机号</string>
+    <string name="activity_forget_password_next">下一步</string>
+
+    <string name="activity_reset_password_title">设置密码</string>
+    <string name="activity_reset_password_confirm">提交</string>
+    <string name="activity_reset_password_repeat">确认新密码</string>
+    <string name="activity_reset_password_failed">重置密码失败，请重试！</string>
+    <string name="activity_reset_password_success">重置成功，请登录！</string>
 </resources>
