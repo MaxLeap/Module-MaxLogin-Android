@@ -18,6 +18,7 @@ public class MyApplication extends Application {
         MaxLeap.Options options = new MaxLeap.Options();
         options.appId = APP_ID;
         options.clientKey = API_KEY;
+        options.enableAnonymousUser = false;
         options.serverRegion = MaxLeap.REGION_CN;
         MaxLeap.setLogLevel(MaxLeap.LOG_LEVEL_VERBOSE);//设置log输出的等级
         MaxLeap.initialize(this, options);

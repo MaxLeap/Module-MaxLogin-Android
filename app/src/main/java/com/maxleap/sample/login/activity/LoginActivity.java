@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 import com.maxleap.LogInCallback;
 import com.maxleap.MLUser;
 import com.maxleap.MLUserManager;
-import com.maxleap.SignUpCallback;
 import com.maxleap.exception.MLException;
 import com.maxleap.sample.login.R;
 
@@ -88,6 +88,10 @@ public class LoginActivity extends BaseActivity {
                 if (TextUtils.isEmpty(tel) || TextUtils.isEmpty(pwd)) {
                     return;
                 }
+                View fview = getCurrentFocus();
+                ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).
+                        hideSoftInputFromWindow(fview.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
                 progressBarArea.setVisibility(View.VISIBLE);
                 MLUserManager.logInInBackground(tel, pwd, new LogInCallback() {
                     @Override
@@ -98,7 +102,7 @@ public class LoginActivity extends BaseActivity {
                             showToast("登录成功:" + mlUser.getUserName());
                             goMain();
                         } else {
-                            showToast("登录失败");
+                            showToast("登录失败:"+e.getMessage());
                         }
 
                     }
