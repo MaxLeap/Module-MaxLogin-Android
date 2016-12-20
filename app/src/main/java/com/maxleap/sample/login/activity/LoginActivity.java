@@ -17,6 +17,7 @@ import com.maxleap.LogInCallback;
 import com.maxleap.MLUser;
 import com.maxleap.MLUserManager;
 import com.maxleap.exception.MLException;
+import com.maxleap.sample.login.LoginUser;
 import com.maxleap.sample.login.R;
 
 import butterknife.BindView;
@@ -93,11 +94,11 @@ public class LoginActivity extends BaseActivity {
                         hideSoftInputFromWindow(fview.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                 progressBarArea.setVisibility(View.VISIBLE);
-                MLUserManager.logInInBackground(tel, pwd, new LogInCallback() {
+
+                MLUserManager.logInInBackground(tel, pwd, LoginUser.class, new LogInCallback() {
                     @Override
                     public void done(MLUser mlUser, MLException e) {
                         progressBarArea.setVisibility(View.GONE);
-
                         if (e == null) {
                             showToast("登录成功:" + mlUser.getUserName());
                             goMain();
