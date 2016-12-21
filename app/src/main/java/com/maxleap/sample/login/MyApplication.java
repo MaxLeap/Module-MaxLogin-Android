@@ -43,7 +43,7 @@ public class MyApplication extends Application {
 
         ImageLoaderConfiguration mImageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this)
 
-                .diskCache(new UnlimitedDiskCache(getCacheDir()))
+                .diskCache(new UnlimitedDiskCache(getExternalCacheDir()))
                 .diskCacheExtraOptions(480, 800, null)
                 .diskCacheSize(100 * 1024 * 1024)
                 .diskCacheFileCount(500)

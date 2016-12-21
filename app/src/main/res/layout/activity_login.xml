@@ -121,6 +121,7 @@
             android:id="@+id/login_third_party_area"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 

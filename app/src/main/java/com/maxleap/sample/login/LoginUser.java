@@ -1,5 +1,6 @@
 package com.maxleap.sample.login;
 
+import com.maxleap.MLFile;
 import com.maxleap.MLUser;
 
 /**
@@ -37,7 +38,7 @@ public class LoginUser extends MLUser {
         put(KEY_COMMENT, value);
     }
 
-    public void setKeyHeadImage(String value) {
+    public void setKeyHeadImage(Object value) {
         put(KEY_HEADIMAGE, value);
     }
 
@@ -49,8 +50,8 @@ public class LoginUser extends MLUser {
         return getString(KEY_COMMENT);
     }
 
-    public String getKeyHeadImage() {
-        return getString(KEY_HEADIMAGE);
+    public MLFile getKeyHeadImage() {
+        return getMLFile(KEY_HEADIMAGE);
     }
 
 }

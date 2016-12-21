@@ -21,6 +21,7 @@ import com.maxleap.MLUserManager;
 import com.maxleap.RequestSmsCodeCallback;
 import com.maxleap.SignUpCallback;
 import com.maxleap.exception.MLException;
+import com.maxleap.sample.login.LoginUser;
 import com.maxleap.sample.login.R;
 import com.maxleap.sample.login.utils.FFLog;
 import com.maxleap.sample.login.utils.NoUtilCheck;
@@ -159,7 +160,7 @@ public class SignUpActivity extends BaseActivity {
                 registerTel.setErrorEnabled(false);
                 registerTel.setError("");
 
-                MLUser users = new MLUser();
+                LoginUser users = new LoginUser();
                 users.setUserName(tel);
                 users.setPassword(pwd);
                 MLUserManager.signUpInBackground(users, new SignUpCallback() {

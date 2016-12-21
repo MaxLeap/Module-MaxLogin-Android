@@ -15,6 +15,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
+import com.maxleap.MLUserManager;
+import com.maxleap.ResetPasswordCallback;
+import com.maxleap.exception.MLException;
 import com.maxleap.sample.login.R;
 import com.maxleap.sample.login.utils.NoUtilCheck;
 
@@ -82,8 +85,22 @@ public class ResetPasswordActivity extends BaseActivity {
                             hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     progressbar.setVisibility(View.VISIBLE);
 
+                    MLUserManager.requestResetPasswordInBackground(tel, code, pwd,
+                            new ResetPasswordCallback() {
+                                @Override
+                                public void done(final MLException e) {
+                                    progressbar.setVisibility(View.GONE);
+                                    if (e != null) {
+                                        //  发生错误
+                                        showToast("重置失败:"+e.getMessage());
+                                    } else {
+                                        //  成功请求
+                                        showToast("密码重置成功!");
 
-
+                                        finish();
+                                    }
+                                }
+                            });
                 }
             }
         });

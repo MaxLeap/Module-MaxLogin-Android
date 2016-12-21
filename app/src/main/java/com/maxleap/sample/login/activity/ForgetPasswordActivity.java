@@ -18,6 +18,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
+import com.maxleap.MLUserManager;
+import com.maxleap.RequestPasswordResetCallback;
+import com.maxleap.exception.MLException;
 import com.maxleap.sample.login.R;
 import com.maxleap.sample.login.utils.NoUtilCheck;
 
@@ -64,7 +67,25 @@ public class ForgetPasswordActivity extends BaseActivity {
                             hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     progressbar.setVisibility(View.VISIBLE);
 
-                    //TODO
+                    MLUserManager.requestPasswordResetByPhoneNumberInBackground(txt, new RequestPasswordResetCallback() {
+                        @Override
+                        public void done(final MLException e) {
+                            progressbar.setVisibility(View.GONE);
+                            if (e != null) {
+                                //  发生错误
+                                showToast(e.getMessage());
+                            } else {
+                                //  成功请求
+                                showToast("发送成功");
+
+                                Intent i = new Intent(ForgetPasswordActivity.this,ResetPasswordActivity.class);
+
+                                i.putExtra(ResetPasswordActivity.INTENT_KEY_RESET_PHONE,txt);
+                                startActivityForResult(i,1);
+                                finish();
+                            }
+                        }
+                    });
 
                 }
             }
@@ -99,12 +120,4 @@ public class ForgetPasswordActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_RESET_PASSWORD) {
-            setResult(RESULT_OK);
-            finish();
-        }
-    }
 }
