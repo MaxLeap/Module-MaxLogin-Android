@@ -13,9 +13,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-
 /**
- * Created by xupanpan on 12/16/16.
+ * @author Walking
  */
 public class MyApplication extends Application {
 
@@ -34,7 +33,6 @@ public class MyApplication extends Application {
         MaxLeap.initialize(this, options);
 
         MLUser.registerSubclass(LoginUser.class);
-
 
         initImageLoader();
     }

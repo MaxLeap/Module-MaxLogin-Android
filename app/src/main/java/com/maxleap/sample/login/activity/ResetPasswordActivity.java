@@ -20,7 +20,9 @@ import com.maxleap.ResetPasswordCallback;
 import com.maxleap.exception.MLException;
 import com.maxleap.sample.login.R;
 import com.maxleap.sample.login.utils.NoUtilCheck;
-
+/**
+ * @author Walking
+ */
 public class ResetPasswordActivity extends BaseActivity {
 
     public final static String INTENT_KEY_RESET_PHONE = "INTENT_KEY_RESET_PHONE";

@@ -18,12 +18,11 @@ import android.widget.TextView;
 import com.maxleap.MLFile;
 import com.maxleap.MLUser;
 import com.maxleap.MLUserManager;
-import com.maxleap.RequestPasswordResetCallback;
 import com.maxleap.SaveCallback;
 import com.maxleap.exception.MLException;
+import com.maxleap.sample.login.ChooseImageUtil;
 import com.maxleap.sample.login.LoginUser;
 import com.maxleap.sample.login.R;
-import com.maxleap.sample.login.ChooseImageUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -36,7 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by xupanpan on 12/16/16.
+ * @author Walking
  */
 public class MainActivity extends BaseActivity {
 
@@ -227,7 +226,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.rl_age:
 
-      /*          showDialog("设置年龄", tvAge.getText().toString(), new OnValueChangeListener() {
+                showDialog("设置年龄", tvAge.getText().toString(), new OnValueChangeListener() {
                     @Override
                     public void onChangedValue(String value) {
                         if (TextUtils.isEmpty(value)) {
@@ -243,23 +242,7 @@ public class MainActivity extends BaseActivity {
                             }
                         }
                     }
-                });*/
-
-
-                MLUserManager.requestPasswordResetByPhoneNumberInBackground("15901450159", new RequestPasswordResetCallback() {
-                    @Override
-                    public void done(final MLException e) {
-                        if (e != null) {
-                            //  发生错误
-                            showToast(e.getMessage());
-                        } else {
-                            //  成功请求
-                            showToast("发送成功");
-
-                        }
-                    }
                 });
-
                 break;
             case R.id.tv_logout:
 

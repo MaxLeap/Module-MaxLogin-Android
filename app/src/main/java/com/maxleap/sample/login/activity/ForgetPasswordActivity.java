@@ -23,7 +23,9 @@ import com.maxleap.RequestPasswordResetCallback;
 import com.maxleap.exception.MLException;
 import com.maxleap.sample.login.R;
 import com.maxleap.sample.login.utils.NoUtilCheck;
-
+/**
+ * @author Walking
+ */
 public class ForgetPasswordActivity extends BaseActivity {
 
     private final static int REQUEST_CODE_RESET_PASSWORD = 44;

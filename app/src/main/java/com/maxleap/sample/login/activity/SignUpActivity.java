@@ -23,7 +23,6 @@ import com.maxleap.SignUpCallback;
 import com.maxleap.exception.MLException;
 import com.maxleap.sample.login.LoginUser;
 import com.maxleap.sample.login.R;
-import com.maxleap.sample.login.utils.FFLog;
 import com.maxleap.sample.login.utils.NoUtilCheck;
 
 import butterknife.BindView;
@@ -31,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by xupanpan on 12/16/16.
+ * @author Walking
  */
 public class SignUpActivity extends BaseActivity {
     @BindView(R.id.register_tel)
@@ -67,7 +66,7 @@ public class SignUpActivity extends BaseActivity {
         rbType1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     rlCode.setVisibility(View.GONE);
                     rlPwd.setVisibility(View.VISIBLE);
                 }
@@ -77,7 +76,7 @@ public class SignUpActivity extends BaseActivity {
         rbType2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     rlCode.setVisibility(View.VISIBLE);
                     rlPwd.setVisibility(View.GONE);
                 }
@@ -239,7 +238,7 @@ public class SignUpActivity extends BaseActivity {
             @Override
             public void done(final MLException e) {
                 if (e != null) {
-                    FFLog.toast(SignUpActivity.this, R.string.fragment_login_get_verify_code_failed);
+                    showToast(getString(R.string.fragment_login_get_verify_code_failed));
                     countDownTimer.cancel();
                     registerVerifyCodeGet.setEnabled(true);
                     registerVerifyCodeGet.setText(R.string.activity_register_get_verify_code);
