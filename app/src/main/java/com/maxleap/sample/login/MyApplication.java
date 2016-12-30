@@ -39,6 +39,8 @@ public class MyApplication extends Application {
 
     private void initImageLoader() {
 
+
+
         ImageLoaderConfiguration mImageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this)
 
                 .diskCache(new UnlimitedDiskCache(getExternalCacheDir()))

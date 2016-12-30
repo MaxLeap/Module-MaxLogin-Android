@@ -106,6 +106,37 @@
 
             </RelativeLayout>
 
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_bind_phone"
+                android:layout_width="match_parent"
+                android:paddingLeft="15dp"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:text="@string/activity_bind_phone" />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_bind_email"
+                android:layout_width="match_parent"
+                android:paddingLeft="15dp"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:text="@string/activity_bind_email" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_reset_pwd"
+                android:layout_width="match_parent"
+                android:paddingLeft="15dp"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:text="@string/activity_reset_password" />
+
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_logout"

@@ -19,7 +19,9 @@ import com.maxleap.LogInCallback;
 import com.maxleap.MLUser;
 import com.maxleap.MLUserManager;
 import com.maxleap.RequestSmsCodeCallback;
+import com.maxleap.SaveCallback;
 import com.maxleap.SignUpCallback;
+import com.maxleap.VerifyPhoneCallback;
 import com.maxleap.exception.MLException;
 import com.maxleap.sample.login.LoginUser;
 import com.maxleap.sample.login.R;
@@ -51,6 +53,8 @@ public class SignUpActivity extends BaseActivity {
     AppCompatRadioButton rbType1;
     @BindView(R.id.rb_type2)
     AppCompatRadioButton rbType2;
+    @BindView(R.id.rb_type3)
+    AppCompatRadioButton rbType3;
     @BindView(R.id.rl_code)
     RelativeLayout rlCode;
     @BindView(R.id.rl_pwd)
@@ -67,6 +71,9 @@ public class SignUpActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
+                    registerTel.setHint("请输入用户名");
+                    registerTel.getEditText().setText("");
+                    registerTel.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
                     rlCode.setVisibility(View.GONE);
                     rlPwd.setVisibility(View.VISIBLE);
                 }
@@ -77,8 +84,25 @@ public class SignUpActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
+                    registerTel.setHint("请输入手机号");
+                    registerTel.getEditText().setText("");
+                    registerTel.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
                     rlCode.setVisibility(View.VISIBLE);
                     rlPwd.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
+        rbType3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    registerTel.setHint("请输入用户名");
+                    registerTel.getEditText().setText("");
+                    registerTel.getEditText().setInputType(InputType.TYPE_CLASS_TEXT);
+                    rlCode.setVisibility(View.GONE);
+                    rlPwd.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -125,6 +149,34 @@ public class SignUpActivity extends BaseActivity {
         }
     }
 
+    private String getRegistPwd() {
+
+        final String pwd = registerPassword.getEditText().getText().toString();
+        if (TextUtils.isEmpty(pwd)) {
+            registerPassword.setError(getString(R.string.fragment_login_password_empty_error));
+            registerPassword.requestFocus();
+        } else if (pwd.length() < 6 || pwd.length() > 20) {
+            registerPassword.setError(getString(R.string.fragment_login_password_invalid_error));
+            registerPassword.requestFocus();
+        } else if (!NoUtilCheck.isReasonable(pwd) || NoUtilCheck.isNumeric(pwd) || NoUtilCheck.isCharacter(pwd)) {
+            registerPassword.setError(getString(R.string.fragment_login_password_safe_error));
+            registerPassword.requestFocus();
+        } else {
+
+            View view = getCurrentFocus();
+            ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            progressBarArea.setVisibility(View.VISIBLE);
+
+            registerPassword.setErrorEnabled(false);
+            registerPassword.setError("");
+            registerTel.setErrorEnabled(false);
+            registerTel.setError("");
+            return pwd;
+        }
+        return null;
+    }
+
 
     private void regist() {
 
@@ -137,31 +189,12 @@ public class SignUpActivity extends BaseActivity {
         }
 
         if (rbType1.isChecked()) {
-            final String pwd = registerPassword.getEditText().getText().toString();
-            if (TextUtils.isEmpty(pwd)) {
-                registerPassword.setError(getString(R.string.fragment_login_password_empty_error));
-                registerPassword.requestFocus();
-            } else if (pwd.length() < 6 || pwd.length() > 20) {
-                registerPassword.setError(getString(R.string.fragment_login_password_invalid_error));
-                registerPassword.requestFocus();
-            } else if (!NoUtilCheck.isReasonable(pwd) || NoUtilCheck.isNumeric(pwd) || NoUtilCheck.isCharacter(pwd)) {
-                registerPassword.setError(getString(R.string.fragment_login_password_safe_error));
-                registerPassword.requestFocus();
-            } else {
-
-                View view = getCurrentFocus();
-                ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).
-                        hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                progressBarArea.setVisibility(View.VISIBLE);
-
-                registerPassword.setErrorEnabled(false);
-                registerPassword.setError("");
-                registerTel.setErrorEnabled(false);
-                registerTel.setError("");
-
+            String registPwd = getRegistPwd();
+            if (registPwd != null) {
                 LoginUser users = new LoginUser();
                 users.setUserName(tel);
-                users.setPassword(pwd);
+                users.setPassword(registPwd);
+                progressBarArea.setVisibility(View.VISIBLE);
                 MLUserManager.signUpInBackground(users, new SignUpCallback() {
                     public void done(MLException e) {
                         progressBarArea.setVisibility(View.GONE);
@@ -169,6 +202,7 @@ public class SignUpActivity extends BaseActivity {
                             // 注册成功
                             showToast("注册成功!");
                             finish();
+
                         } else {
                             // 注册失败
                             showToast(e.getMessage());
@@ -177,7 +211,7 @@ public class SignUpActivity extends BaseActivity {
                 });
             }
 
-        } else {
+        } else if (rbType2.isChecked()) {
             String code = registerVerifyCode.getEditText().getText().toString();
 
             if (!NoUtilCheck.isMobileNo(tel)) {
@@ -204,13 +238,35 @@ public class SignUpActivity extends BaseActivity {
                         if (e != null) {
                             showToast(e.getMessage());
                         } else {
-                            showToast("登录成功!");
+                            showToast("注册成功!");
                             finish();
                         }
                     }
                 });
 
             }
+        } else {
+            String registPwd = getRegistPwd();
+            if (registPwd != null) {
+                LoginUser users = new LoginUser();
+                users.setUserName(tel);
+                users.setPassword(registPwd);
+                progressBarArea.setVisibility(View.VISIBLE);
+                MLUserManager.signUpInBackground(users, new SignUpCallback() {
+                    public void done(MLException e) {
+                        progressBarArea.setVisibility(View.GONE);
+                        if (e == null) {
+                            // 注册成功
+                            goNext(getString(R.string.activity_bind_phone),BindPhoneActivity.class);
+                            finish();
+                        } else {
+                            // 注册失败
+                            showToast(e.getMessage());
+                        }
+                    }
+                });
+            }
+
         }
     }
 

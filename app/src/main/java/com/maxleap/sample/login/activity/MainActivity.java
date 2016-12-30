@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.maxleap.MLFile;
 import com.maxleap.MLUser;
 import com.maxleap.MLUserManager;
+import com.maxleap.RequestEmailVerifyCallback;
 import com.maxleap.SaveCallback;
 import com.maxleap.exception.MLException;
 import com.maxleap.sample.login.ChooseImageUtil;
@@ -57,6 +58,12 @@ public class MainActivity extends BaseActivity {
     RelativeLayout rlSex;
     @BindView(R.id.rl_age)
     RelativeLayout rlAge;
+    @BindView(R.id.tv_bind_phone)
+    AppCompatTextView tvBindPhone;
+    @BindView(R.id.tv_bind_email)
+    AppCompatTextView tvBindEmail;
+    @BindView(R.id.tv_reset_pwd)
+    AppCompatTextView tvResetPwd;
     private DisplayImageOptions mBaseimageOptions;
 
     @Override
@@ -73,6 +80,7 @@ public class MainActivity extends BaseActivity {
                 .imageScaleType(ImageScaleType.EXACTLY).displayer(new CircleBitmapDisplayer()).build();
 
         initViewData();
+
     }
 
 
@@ -98,6 +106,25 @@ public class MainActivity extends BaseActivity {
             String url = "http://" + mlFile.getUrl();
             ImageLoader.getInstance().displayImage(url, ivHead, mBaseimageOptions, null);
         }
+
+        String mobilePhone = currentUser.getString("mobilePhone");
+        Boolean phoneVerified = currentUser.isPhoneVerified();
+
+        if (mobilePhone != null) {
+            tvBindPhone.setText("手机号:" + mobilePhone + (phoneVerified ? "已绑定" : "待绑定"));
+        } else {
+            tvBindPhone.setText("绑定手机号");
+        }
+
+        String email = currentUser.getEmail();
+        Boolean emailVerified = currentUser.isEmailVerified();
+
+        if (TextUtils.isEmpty(email)) {
+            tvBindEmail.setText("绑定邮箱");
+        } else {
+            tvBindEmail.setText("邮箱:" + email + (emailVerified ? "已绑定" : "待绑定"));
+        }
+
     }
 
 
@@ -183,7 +210,7 @@ public class MainActivity extends BaseActivity {
 
     private ChooseImageUtil mChooseImageUtil;
 
-    @OnClick({R.id.iv_head, R.id.tv_nickname, R.id.tv_comment, R.id.rl_sex, R.id.rl_age, R.id.tv_logout})
+    @OnClick({R.id.iv_head, R.id.tv_nickname, R.id.tv_comment, R.id.rl_sex, R.id.rl_age, R.id.tv_logout, R.id.tv_bind_phone, R.id.tv_bind_email,R.id.tv_reset_pwd})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_head:
@@ -257,9 +284,36 @@ public class MainActivity extends BaseActivity {
                     }
                 }).show();
                 break;
+            case R.id.tv_bind_phone:
+
+                goNext(getString(R.string.activity_bind_phone), BindPhoneActivity.class);
+
+                break;
+            case R.id.tv_bind_email:
+
+                goNext(getString(R.string.activity_bind_email), BindEmailActivity.class);
+
+                break;
+            case R.id.tv_reset_pwd:
+
+                String mobilePhone = currentUser.getString("mobilePhone");
+                Boolean phoneVerified = currentUser.isPhoneVerified();
+
+                if(mobilePhone != null && phoneVerified){
+                    goNext(getString(R.string.activity_reset_password), ForgetPasswordActivity.class);
+                }else {
+                    showToast("请先绑定手机号!");
+                }
+
+                break;
         }
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        initViewData();
+    }
 
     private void showDialog(String title, final String value, final OnValueChangeListener listener) {
 
