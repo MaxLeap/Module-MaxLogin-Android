@@ -25,8 +25,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         MaxLeap.Options options = new MaxLeap.Options();
-        options.appId = APP_ID;
-        options.clientKey = API_KEY;
+        options.applicationID = APP_ID;
+        options.restAPIKey = API_KEY;
         options.enableAnonymousUser = false;
         options.serverRegion = MaxLeap.REGION_CN;
         MaxLeap.setLogLevel(MaxLeap.LOG_LEVEL_VERBOSE);//设置log输出的等级
@@ -35,11 +35,14 @@ public class MyApplication extends Application {
         MLUser.registerSubclass(LoginUser.class);
 
         initImageLoader();
+
+        //检查是否成功连接服务器,正式环境可移除
+        MaxLeap.checkSDKConnection();
+
+
     }
 
     private void initImageLoader() {
-
-
 
         ImageLoaderConfiguration mImageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this)
 

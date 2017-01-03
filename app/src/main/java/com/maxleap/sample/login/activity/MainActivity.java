@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
@@ -15,10 +16,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.maxleap.GetCallback;
 import com.maxleap.MLFile;
+import com.maxleap.MLObject;
 import com.maxleap.MLUser;
 import com.maxleap.MLUserManager;
-import com.maxleap.RequestEmailVerifyCallback;
 import com.maxleap.SaveCallback;
 import com.maxleap.exception.MLException;
 import com.maxleap.sample.login.ChooseImageUtil;
@@ -64,6 +66,8 @@ public class MainActivity extends BaseActivity {
     AppCompatTextView tvBindEmail;
     @BindView(R.id.tv_reset_pwd)
     AppCompatTextView tvResetPwd;
+    @BindView(R.id.srl)
+    SwipeRefreshLayout srl;
     private DisplayImageOptions mBaseimageOptions;
 
     @Override
@@ -79,6 +83,22 @@ public class MainActivity extends BaseActivity {
                 .bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
                 .imageScaleType(ImageScaleType.EXACTLY).displayer(new CircleBitmapDisplayer()).build();
 
+        srl.setColorSchemeResources(R.color.color_primary, R.color.text_color_blue, R.color.voucher_color_red);
+        srl.setNestedScrollingEnabled(true);
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                MLUserManager.fetchInBackground(currentUser, new GetCallback() {
+                    @Override
+                    public void done(MLObject mlObject, MLException e) {
+                        srl.setRefreshing(false);
+                        initViewData();
+                    }
+                });
+
+            }
+        });
         initViewData();
 
     }
@@ -210,7 +230,7 @@ public class MainActivity extends BaseActivity {
 
     private ChooseImageUtil mChooseImageUtil;
 
-    @OnClick({R.id.iv_head, R.id.tv_nickname, R.id.tv_comment, R.id.rl_sex, R.id.rl_age, R.id.tv_logout, R.id.tv_bind_phone, R.id.tv_bind_email,R.id.tv_reset_pwd})
+    @OnClick({R.id.iv_head, R.id.tv_nickname, R.id.tv_comment, R.id.rl_sex, R.id.rl_age, R.id.tv_logout, R.id.tv_bind_phone, R.id.tv_bind_email, R.id.tv_reset_pwd})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_head:
@@ -299,9 +319,9 @@ public class MainActivity extends BaseActivity {
                 String mobilePhone = currentUser.getString("mobilePhone");
                 Boolean phoneVerified = currentUser.isPhoneVerified();
 
-                if(mobilePhone != null && phoneVerified){
+                if (mobilePhone != null && phoneVerified) {
                     goNext(getString(R.string.activity_reset_password), ForgetPasswordActivity.class);
-                }else {
+                } else {
                     showToast("请先绑定手机号!");
                 }
 

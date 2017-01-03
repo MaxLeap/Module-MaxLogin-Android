@@ -22,7 +22,7 @@ import butterknife.OnClick;
 /**
  * 绑定邮箱,会发送邮件至您所填写的邮箱,请确保邮箱的正确性。
  *
- * 邮件发出后,请登录邮箱进行验证。验证成功后,客户端重新登录,可获取验证状态。
+ * 邮件发出后,请登录邮箱进行验证。验证成功后,刷新可获最新验证状态。
  *
  */
 public class BindEmailActivity extends BaseActivity {
