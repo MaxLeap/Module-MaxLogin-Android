@@ -130,16 +130,20 @@ public class ChooseImageUtil {
         String res = null;
         Uri uri = data.getData();
         String[] proj = {MediaStore.Images.Media.DATA};
-        //Cursor cursor = act.managedQuery(uri, proj, null, null, null);
         Cursor cursor = act.getContentResolver().query(uri, proj, null, null, null);
-        if (cursor == null) {
-            return null;
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                res = cursor.getString(column_index);
+            }
+            cursor.close();
         }
-        if (cursor.moveToFirst()) {
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            res = cursor.getString(column_index);
+        if(res == null){
+            String path = uri.getPath();
+            if(null != path ){
+                res = path;
+            }
         }
-        cursor.close();
 
         return res;
     }

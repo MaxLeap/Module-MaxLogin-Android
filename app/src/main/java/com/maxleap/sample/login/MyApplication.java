@@ -13,6 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+
 /**
  * @author Walking
  */
@@ -33,12 +34,10 @@ public class MyApplication extends Application {
         options.enableAnonymousUser = true;
         options.serverRegion = MaxLeap.REGION_CN;
         MaxLeap.setLogLevel(MaxLeap.LOG_LEVEL_VERBOSE);//设置log输出的等级
+        MLUser.registerSubclass(LoginUser.class);
         MaxLeap.initialize(this, options);
 
-        MLUser.registerSubclass(LoginUser.class);
-
         initImageLoader();
-
         //检查是否成功连接服务器,正式环境可移除
         MaxLeap.checkSDKConnection();
 

@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.maxleap.GetCallback;
-import com.maxleap.MLAnonymousUtils;
 import com.maxleap.MLFile;
 import com.maxleap.MLObject;
 import com.maxleap.MLUser;
@@ -176,7 +175,9 @@ public class MainActivity extends BaseActivity {
 
                 if (resultCode == RESULT_OK && data != null && mChooseImageUtil != null) {
                     String imageFromPicker = mChooseImageUtil.getImageFromPicker(this, data);
-                    uploadImage(imageFromPicker);
+                    if(!TextUtils.isEmpty(imageFromPicker)){
+                        uploadImage(imageFromPicker);
+                    }
                 }
 
                 break;

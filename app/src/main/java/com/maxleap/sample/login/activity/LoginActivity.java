@@ -56,14 +56,11 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
         MLUser currentUser = MLUser.getCurrentUser();
-
         //非匿名用户登录
         if (currentUser != null && !MLAnonymousUtils.isLinked(currentUser)) {
             goMain();
         }
-
     }
 
 
