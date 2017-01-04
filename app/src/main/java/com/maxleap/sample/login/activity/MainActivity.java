@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.maxleap.GetCallback;
+import com.maxleap.MLAnonymousUtils;
 import com.maxleap.MLFile;
 import com.maxleap.MLObject;
 import com.maxleap.MLUser;

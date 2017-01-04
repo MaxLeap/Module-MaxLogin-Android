@@ -21,13 +21,16 @@ public class MyApplication extends Application {
     public static final String APP_ID = "58536be0d63c0800074d3334";
     public static final String API_KEY = "N3FqcmRWMVllVTFwcHdoR3Z3TnFQdw";
 
+
     @Override
     public void onCreate() {
         super.onCreate();
         MaxLeap.Options options = new MaxLeap.Options();
         options.applicationID = APP_ID;
         options.restAPIKey = API_KEY;
-        options.enableAnonymousUser = false;
+        //匿名用户是指提供用户名和密码，系统为您创建的一类特殊用户，它享有其他用户具备的相同功能。
+        // 不过，一旦注销，匿名用户的所有数据都将无法访问。如果您的应用需要使用一个相对弱化的用户系统时，您可以考虑 MaxLeap 提供的匿名用户系统来实现您的功能。
+        options.enableAnonymousUser = true;
         options.serverRegion = MaxLeap.REGION_CN;
         MaxLeap.setLogLevel(MaxLeap.LOG_LEVEL_VERBOSE);//设置log输出的等级
         MaxLeap.initialize(this, options);

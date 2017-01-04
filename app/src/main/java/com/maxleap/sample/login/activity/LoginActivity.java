@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.maxleap.LogInCallback;
+import com.maxleap.MLAnonymousUtils;
 import com.maxleap.MLUser;
 import com.maxleap.MLUserManager;
 import com.maxleap.exception.MLException;
@@ -56,7 +57,10 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        if(MLUser.getCurrentUser()!= null){
+        MLUser currentUser = MLUser.getCurrentUser();
+
+        //非匿名用户登录
+        if (currentUser != null && !MLAnonymousUtils.isLinked(currentUser)) {
             goMain();
         }
 
@@ -103,7 +107,7 @@ public class LoginActivity extends BaseActivity {
                             showToast("登录成功:" + mlUser.getUserName());
                             goMain();
                         } else {
-                            showToast("登录失败:"+e.getMessage());
+                            showToast("登录失败:" + e.getMessage());
                         }
 
                     }
@@ -131,13 +135,13 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(MLUser.getCurrentUser()!= null){
+        if (MLUser.getCurrentUser() != null) {
             goMain();
         }
     }
 
-    private void goMain(){
-        goNext(MLUser.getCurrentUser().getUserName(),MainActivity.class);
+    private void goMain() {
+        goNext(MLUser.getCurrentUser().getUserName(), MainActivity.class);
         finish();
     }
 
