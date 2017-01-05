@@ -50,7 +50,7 @@ public class BindPhoneActivity extends BaseActivity {
                 String phone = getPhone();
                 if (phone != null) {
                     MLUser currentUser = MLUser.getCurrentUser();
-                    currentUser.put("mobilePhone", phone);
+                    currentUser.setMobilePhone(phone);
                     progressBarArea.setVisibility(View.VISIBLE);
                     MLUserManager.saveInBackground(currentUser, new SaveCallback() {
                         @Override

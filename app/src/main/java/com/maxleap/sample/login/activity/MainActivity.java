@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity {
             ImageLoader.getInstance().displayImage(url, ivHead, mBaseimageOptions, null);
         }
 
-        String mobilePhone = currentUser.getString("mobilePhone");
+        String mobilePhone = currentUser.getMobilePhone();
         Boolean phoneVerified = currentUser.isPhoneVerified();
 
         if (mobilePhone != null) {
@@ -175,7 +175,7 @@ public class MainActivity extends BaseActivity {
 
                 if (resultCode == RESULT_OK && data != null && mChooseImageUtil != null) {
                     String imageFromPicker = mChooseImageUtil.getImageFromPicker(this, data);
-                    if(!TextUtils.isEmpty(imageFromPicker)){
+                    if (!TextUtils.isEmpty(imageFromPicker)) {
                         uploadImage(imageFromPicker);
                     }
                 }

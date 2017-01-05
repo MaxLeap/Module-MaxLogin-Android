@@ -53,7 +53,7 @@ public class BindEmailActivity extends BaseActivity {
             return;
         }
         LoginUser currentUser = (LoginUser) MLUser.getCurrentUser(LoginUser.class);
-        currentUser.put("email", trim);
+        currentUser.setEmail(trim);
         progressBarArea.setVisibility(View.VISIBLE);
         MLUserManager.saveInBackground(currentUser, new SaveCallback() {
             @Override

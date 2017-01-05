@@ -41,7 +41,6 @@ public class MyApplication extends Application {
         //检查是否成功连接服务器,正式环境可移除
         MaxLeap.checkSDKConnection();
 
-
     }
 
     private void initImageLoader() {
