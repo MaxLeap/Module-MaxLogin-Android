@@ -67,7 +67,10 @@
     <string name="activity_forget_password_tel">手机号</string>
     <string name="activity_forget_password_next">下一步</string>
 
-    <string name="activity_reset_password">修改密码</string>
+    <string name="activity_change_old_password">输入旧密码</string>
+    <string name="activity_change_new_password">输入新密码</string>
+    <string name="activity_change_password">修改密码</string>
+    <string name="activity_reset_password">重置密码</string>
     <string name="activity_reset_password_title">设置密码</string>
     <string name="activity_reset_password_confirm">提交</string>
     <string name="activity_reset_password_repeat">确认新密码</string>

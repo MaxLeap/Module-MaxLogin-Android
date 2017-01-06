@@ -44,6 +44,9 @@
             android:name=".activity.ResetPasswordActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".activity.ChangePasswordActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".activity.BindPhoneActivity"
             android:launchMode="singleTop" />
         <activity

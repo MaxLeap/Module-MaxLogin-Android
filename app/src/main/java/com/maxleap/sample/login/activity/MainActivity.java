@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.maxleap.ChangePasswordCallback;
+import com.maxleap.CheckPasswordCallback;
 import com.maxleap.GetCallback;
 import com.maxleap.MLFile;
 import com.maxleap.MLObject;
@@ -66,6 +68,8 @@ public class MainActivity extends BaseActivity {
     AppCompatTextView tvBindEmail;
     @BindView(R.id.tv_reset_pwd)
     AppCompatTextView tvResetPwd;
+    @BindView(R.id.tv_change_pwd)
+    AppCompatTextView tvChangePwd;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
     private DisplayImageOptions mBaseimageOptions;
@@ -146,7 +150,6 @@ public class MainActivity extends BaseActivity {
         }
 
     }
-
 
     private void updateUserInfo(MLUser currentUser) {
 
@@ -232,7 +235,7 @@ public class MainActivity extends BaseActivity {
 
     private ChooseImageUtil mChooseImageUtil;
 
-    @OnClick({R.id.iv_head, R.id.tv_nickname, R.id.tv_comment, R.id.rl_sex, R.id.rl_age, R.id.tv_logout, R.id.tv_bind_phone, R.id.tv_bind_email, R.id.tv_reset_pwd})
+    @OnClick({R.id.iv_head, R.id.tv_nickname, R.id.tv_comment, R.id.rl_sex, R.id.rl_age, R.id.tv_logout, R.id.tv_bind_phone, R.id.tv_bind_email, R.id.tv_reset_pwd, R.id.tv_change_pwd})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_head:
@@ -314,6 +317,16 @@ public class MainActivity extends BaseActivity {
             case R.id.tv_bind_email:
 
                 goNext(getString(R.string.activity_bind_email), BindEmailActivity.class);
+
+                break;
+
+            case R.id.tv_change_pwd:
+
+                if(currentUser != null){
+                    goNext(getString(R.string.activity_change_password),ChangePasswordActivity.class);
+                }else {
+                    showToast("请登录!");
+                }
 
                 break;
             case R.id.tv_reset_pwd:

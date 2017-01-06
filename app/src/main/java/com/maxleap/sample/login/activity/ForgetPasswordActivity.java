@@ -23,12 +23,11 @@ import com.maxleap.RequestPasswordResetCallback;
 import com.maxleap.exception.MLException;
 import com.maxleap.sample.login.R;
 import com.maxleap.sample.login.utils.NoUtilCheck;
+
 /**
  * @author Walking
  */
 public class ForgetPasswordActivity extends BaseActivity {
-
-    private final static int REQUEST_CODE_RESET_PASSWORD = 44;
 
     private TextInputLayout forgetPwdTel;
     private View progressbar;
@@ -80,10 +79,10 @@ public class ForgetPasswordActivity extends BaseActivity {
                                 //  成功请求
                                 showToast("发送成功");
 
-                                Intent i = new Intent(ForgetPasswordActivity.this,ResetPasswordActivity.class);
+                                Intent i = new Intent(ForgetPasswordActivity.this, ResetPasswordActivity.class);
 
-                                i.putExtra(ResetPasswordActivity.INTENT_KEY_RESET_PHONE,txt);
-                                startActivityForResult(i,1);
+                                i.putExtra(ResetPasswordActivity.INTENT_KEY_RESET_PHONE, txt);
+                                startActivityForResult(i, 1);
                                 finish();
                             }
                         }
