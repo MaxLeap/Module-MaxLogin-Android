@@ -16,8 +16,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.maxleap.ChangePasswordCallback;
-import com.maxleap.CheckPasswordCallback;
 import com.maxleap.GetCallback;
 import com.maxleap.MLFile;
 import com.maxleap.MLObject;
