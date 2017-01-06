@@ -132,7 +132,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (MLUser.getCurrentUser() != null) {
+        if (MLUser.getCurrentUser() != null && !MLAnonymousUtils.isLinked(MLUser.getCurrentUser())) {
             goMain();
         }
     }
